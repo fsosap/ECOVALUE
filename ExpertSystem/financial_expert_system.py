@@ -5,6 +5,7 @@ import json
 
 advise_map={}
 
+
 def preprocess():
     global advise_map
     with open("recomendacion/advises.json",'r') as f:
@@ -22,12 +23,12 @@ class Expert(KnowledgeEngine):
         print("")
         print("Welcome! this service will give you some advices to improve your free cash flow.")
         print("Please complete the following info:")
-
+        print("")
         yield Fact(action='find_state')
 
-    @Rule(Fact(action='find_state'), NOT(Fact(cr=W())),salience = 1)
+    @Rule(Fact(action='find_state'), NOT(Fact(cr=W())), salience = 1)
     def current_ratio(self):
-        self.declare(Fact(cr=input('Current Ratio:')))
+        self.declare(Fact(cr=float(input('Current Ratio:'))))
     
     '''@Rule(Fact(action='find_state'), NOT(Fact(rg=W())),salience = 1)
     def revenue_growth(self):
@@ -68,11 +69,12 @@ class Expert(KnowledgeEngine):
     # para cada iteración se le asignará una etiqueta a la característica para evaluarla
     # para la liquidez
     
-    @Rule(Fact(action='find_state'),Fact(cr<80.0))
+    # @Rule(Fact(action='find_state'),Fact(cr<80.0))
+    @Rule(Fact(action='find_state'),Fact(cr=P(lambda cr: cr < 80.0)))
     def liquidez_1(self):
-        self.declare(Fact(liquidez=labels[0]))
+        self.declare(Fact(liquidez=get_details('liquidez', 'problematico')))
 
-    @Rule(Fact(action='find_state'),Fact(80.0<cr and cr<100.0))
+    '''@Rule(Fact(action='find_state'),Fact(80.0<cr and cr<100.0))
     def liquidez_2(self):
         self.declare(Fact(liquidez=labels[1]))
         
@@ -86,21 +88,17 @@ class Expert(KnowledgeEngine):
         
     @Rule(Fact(action='find_state'),Fact(cr>200.0))
     def liquidez_5(self):
-        self.declare(Fact(liquidez=labels[4]))   
+        self.declare(Fact(liquidez=labels[4]))'''
         
     @Rule(Fact(action='find_state'),Fact(liquidez=MATCH.liquidez),salience = -998)
     def situation(self, liquidez):
         print("")
-        id_situation = liquidez
-        print(liquidez)
-        advise_details = get_details("liquidez", id_situation)
-        print("")
         print("The description of the advise is given below :\n")
-        print(advise_details+"\n")
+        print(liquidez)
         
     # para el crecimiento
     
-    @Rule(Fact(action='find_state'),Fact(rg<(-20.0)))
+    '''@Rule(Fact(action='find_state'),Fact(rg<(-20.0)))
     def crecimiento_1(self):
         self.declare(Fact(crecimiento=labels[0]))
 
@@ -272,7 +270,7 @@ class Expert(KnowledgeEngine):
         
     @Rule(Fact(action='find_state'),Fact(2.5<at))
     def eficiencia_15(self):
-        self.declare(Fact(eficiencia_c=labels[4])) 
+        self.declare(Fact(eficiencia_c=labels[4])) '''
 
 if __name__ == "__main__":
     preprocess()
