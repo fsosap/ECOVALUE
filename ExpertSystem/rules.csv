@@ -1,0 +1,17 @@
+ratio,problematico,mejorable,moderado,sobresaliente,excelente
+current ratio,(<80.0),"(80.0,100.0)","(100.0,150.0)","(150.0,200.0)",(>200.0)   
+revenue growth,(<-20.0),"(-20.0,-5.0)","(-5.0,5.0)","(5.0,20.0)",(>20.0)   
+total debt to total assets,"(0.8,1.0)|(0.0,0.05)","(0.7,0.8)|(0.05,0.1)","(0.5,0.7)|(0.1,0.15)","(0.4,0.5)|(0.15,0.3)","(0.3,0.4)"
+free cash flow to total debt,"(>3.0)|(0.0,0.2)","(1.7,3.0)|(0.2,0.4)","(1.4,1.7)|(0.4,0.6)","(1.1,1.4)|(0.6,0.8)","(0.8,1.1)"
+operating margin,"(<15.0)","(15.0,25.0)","(25.0,40.0)","(40.0,50.0)",(>50.0)
+return on assets,"(<5.0)","(5.0,10.0)","(10.0,20.0)","(20.0,25.0)",(>25.0)
+accounts payable turnover,"(0.0,15.0)","(15.0,30.0)","(30.0,60.0)","(60.0,100.0)",(>100.0)
+sales per employee,"(0.0,4500.0)","(4500.0,9000.0)","(9000.0,12000.0)","(12000.0,15000.0)",(>15000.0)
+asset turnover,"(0.0,0.25)","(0.25,0.8)","(0.8,2.0)","(2.0,2.5)",(>2.5)
+
+composition_map = {'liquidez':['current ratio'],
+    'crecimiento':['revenue growth'],
+    'apalancamiento':['total debt to total assets'],
+    'solvencia':['free cash flow to total debt'],
+    'rentabilidad':['operating margin','return on assets'],
+    'eficiencia':['accounts payable turnover','sales per employee','asset turnover']}
