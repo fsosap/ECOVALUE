@@ -53,7 +53,7 @@ docker run -p 8080:80 app-expert .
 ~~~
 
 ## Probar la ejecución
-Para probar la ejecución del servicio podemos usar [Postman](https://www.postman.com/downloads/) o *curl* si, como el equipo de ECOVALUE, es más amante de la consola:
+Para probar la ejecución del servicio podemos usar desde cualquier ordenador [Postman](https://www.postman.com/downloads/) o *curl* si, como el equipo de ECOVALUE, es más amante de la consola:
 
 ~~~bash
 curl -X POST http://<tu IP o dominio>/recommend \
@@ -72,3 +72,6 @@ curl -X POST http://<tu IP o dominio>/recommend \
 ~~~
 
 Note que debe reemplazar la IP por la que tiene su máquina, por ejemplo 127.0.0.1 que es la IP local.
+
+## Referencias:
+- [Simple way to deploy machine learning models to cloud](https://towardsdatascience.com/simple-way-to-deploy-machine-learning-models-to-cloud-fd58b771fdcf)
