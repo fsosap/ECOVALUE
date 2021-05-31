@@ -43,13 +43,13 @@ docker build -t app-expert .
 ## Ejecutar el contenedor de Docker en segundo plano 
 
 ~~~bash
-docker run -p 80:80 app-expert .
+docker run -d --rm -p 80:80 app-expert .
 ~~~
 
 **Nota:** Si tiene problemas en este paso con permisos es posible que su máquina no le deje ejecutar aplicaciones en el puerto 80 ya que es protegido. En ese caso, cambie el puerto 80 por otro como 8080 en la máquina:
 
 ~~~bash
-docker run -p 8080:80 app-expert .
+docker run -d --rm -p 8080:80 app-expert .
 ~~~
 
 ## Probar la ejecución
