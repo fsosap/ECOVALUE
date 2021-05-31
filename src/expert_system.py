@@ -1,14 +1,12 @@
 from experta import * 
-import pandas as pd
-import os
 import json
+import os
 
 advise_map={}
-answer={}
 
 def preprocess():
     global advise_map
-    with open("recomendacion/advises.json",'r') as f:
+    with open(os.path.dirname(os.path.abspath(__file__)) + "/recomendacion/advises.json",'r') as f:
         advise_map = json.load(f)
  
 def get_details(indicator, label):
@@ -18,6 +16,24 @@ def get_details_extra(indicator, range ,label):
     return advise_map[indicator][range][label]
 
 class Expert(KnowledgeEngine):
+    def set_facts(self, params: dict):
+        """
+        Maps incoming facts into the system data structures
+        Remark: It calls "reset" method at the beginning to delete old Facts.
+        """
+        self.reset()
+
+        self.declare(Fact(cr=params["current_ratio"]))
+        self.declare(Fact(rg=params["revenue_growth_year_over_year"]))
+        self.declare(Fact(da=params["total_debt_to_total_assets"]))
+        self.declare(Fact(fd=params["free_cash_flow_to_total_debt"]))
+        self.declare(Fact(om=params["operating_margin"]))
+        self.declare(Fact(ra=params["return_on_assets"]))
+        self.declare(Fact(ap=params["accounts_ayable_turnover"]))
+        self.declare(Fact(se=params["sales_per_employee"]))
+        self.declare(Fact(at=params["asset_turnover"]))
+
+
     @DefFacts()
     def _initial_action(self):
         self.answer = dict()
@@ -259,9 +275,9 @@ class Expert(KnowledgeEngine):
         print("EFICIENCIA: OK")
   
 if __name__ == "__main__":
+    #For testing purposes only
+    
     preprocess()
-    engine = Expert()
-    engine.reset()  
     params = {
         "free_cash_flow_to_total_debt":5.985886, 
         "accounts_ayable_turnover":0.545793, 
@@ -273,17 +289,7 @@ if __name__ == "__main__":
         "revenue_growth_year_over_year":488.260427, 
         "return_on_assets":-23.377976
     }
-    
-    engine.declare(Fact(cr=params["current_ratio"]))
-    engine.declare(Fact(rg=params["revenue_growth_year_over_year"]))
-    engine.declare(Fact(da=params["total_debt_to_total_assets"]))
-    engine.declare(Fact(fd=params["free_cash_flow_to_total_debt"]))
-    engine.declare(Fact(om=params["operating_margin"]))
-    engine.declare(Fact(ra=params["return_on_assets"]))
-    engine.declare(Fact(ap=params["accounts_ayable_turnover"]))
-    engine.declare(Fact(se=params["sales_per_employee"]))
-    engine.declare(Fact(at=params["asset_turnover"]))
-    
+    engine = Expert()
+    engine.set_facts(params)
     engine.run()
-        
     print(engine.answer)
