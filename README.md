@@ -60,7 +60,7 @@ curl -X POST http://<tu IP o dominio>/recommend \
    -H 'Content-Type: application/json' \
    -d ' {
     "free_cash_flow_to_total_debt": 5.985886,  
-    "accounts_ayable_turnover": 0.545793, 
+    "accounts_payable_turnover": 0.545793, 
     "operating_margin": -84.875316, 
     "sales_per_employee": 566922.568600, 
     "asset_turnover": 0.255633, 
