@@ -29,7 +29,7 @@ class Expert(KnowledgeEngine):
         self.declare(Fact(fd=params["free_cash_flow_to_total_debt"]))
         self.declare(Fact(om=params["operating_margin"]))
         self.declare(Fact(ra=params["return_on_assets"]))
-        self.declare(Fact(ap=params["accounts_ayable_turnover"]))
+        self.declare(Fact(ap=params["accounts_payable_turnover"]))
         self.declare(Fact(se=params["sales_per_employee"]))
         self.declare(Fact(at=params["asset_turnover"]))
 
